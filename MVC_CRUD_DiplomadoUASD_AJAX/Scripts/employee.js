@@ -1,34 +1,39 @@
 ﻿$(document).ready(function () {
     loadData();
-    console.log("Hola")
 });
 
 function loadData() {
     $.ajax({
         url: '/Home/List',
         type: 'GET',
-        contentType: "application/json; charset-utf-8",
+        contentType: "application/json;charset=utf-8",
         dataType: "json",
-        sucesss: function (result) {
+        success: function (result) {
+            console.log('resultado: ' + result.data);
+            data(result.data);
             var html = '';
-            console.log("HOLA");
             $.each(result, function (key, item) {
                 html += '<tr>';
-                html += '<td>' + item.EmpleadoId + '</dt>';
+                html += '<td>' + item.EmpleadoID + '</dt>';
                 html += '<td>' + item.Nombres + '</dt>';
                 html += '<td>' + item.Apellidos + '</dt>';
                 html += '<td>' + item.Edad + '</dt>';
                 html += '<td>' + item.Estado_Civil + '</dt>';
                 html += '<td>' + item.Pais + '</dt>';
-                html += '<td><a href="#" onClick="return getbyId(' + item.EmpleadoId + ')">Edit</a> | <a href="#" onClick="Delete(' + item.EmpleadoId + ')">Delete</a></dt>';
+                html += '<td><a href="#" onClick="return getbyId(' + item.EmpleadoID + ')">Edit</a> | <a href="#" onClick="Delete(' + item.EmpleadoID + ')">Delete</a></dt>';
                 html += '</tr>';
             });
             $('.tbody').html(html);
+            console.log(html);
         },
         error: function (errormessEdad) {
             alert(errormessEdad.responseText);
         }
-    });
+    });    
+}
+
+function data(result) {
+    console.log(result);
 }
 
 function Add() {
